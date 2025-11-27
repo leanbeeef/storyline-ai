@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>AI Evaluation</h2>
+  <textarea id="userText" style="width:100%;height:120px;"></textarea>
+  <button id="sendBtn">Evaluate</button>
+  <pre id="output"></pre>
+
+  <script>
+    document.getElementById("sendBtn").onclick = async () => {
+      const text = document.getElementById("userText").value;
+
+      const response = await fetch("/evaluate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text })
+      });
+
+      const data = await response.json();
+      document.getElementById("output").textContent = data.result;
+    };
+  </script>
+</body>
+</html>
